@@ -15,6 +15,6 @@ Prosty projekt, demonstrujący automatyczny pipeline CI/CD, przy użyciu GitHub 
 ### Struktura projektu
 pipeline-CI-CD/<br>
 │── .github/workflows/python-ci.yml   # Konfiguracja workflow GitHub Actions<br>
+│── README.md                         # Opis repozytorium<br>
 │── app.py                            # Skrypt Pythona<br>
 │── test_app.py                       # Testy jednostkowe<br>
-│── README.md                         # Opis repozytorium<br>
