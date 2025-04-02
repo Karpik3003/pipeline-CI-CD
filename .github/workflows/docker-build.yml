@@ -34,6 +34,6 @@ jobs:
       uses: docker/build-push-action@v5  # Budowanie i pushowanie obrazu Docker
       with:
         context: .
-        file: ./Dockerfile  # Wskazanie pliku Dockerfile
+        file: C:\Users\karpc\source\repos\pipeline-CI-CD\Dockerfile  # Wskazanie pliku Dockerfile
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/myapp:latest  # Ustawienie tagu dla obrazu
