@@ -11,13 +11,13 @@ jobs:
 
     steps:
     - name: Check out repository
-      uses: actions/checkout@v4  # Pobranie repozytorium
+      uses: actions/checkout@v3  # Pobranie repozytorium
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3  # Ustawienie Docker Buildx
 
     - name: Cache Docker layers
-      uses: actions/cache@v4  # Użycie cache do przyspieszenia buildów
+      uses: actions/cache@v3  # Użycie cache do przyspieszenia buildów
       with:
         path: /tmp/.buildx-cache
         key: ${{ runner.os }}-docker-${{ github.sha }}
@@ -31,7 +31,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}  # Wartość z sekretów GitHub
 
     - name: Build and push Docker image
-      uses: docker/build-push-action@v5  # Budowanie i pushowanie obrazu Docker
+      uses: docker/build-push-action@v3  # Budowanie i pushowanie obrazu Docker
       with:
         context: .
         file: C:\Users\karpc\source\repos\pipeline-CI-CD\Dockerfile  # Wskazanie pliku Dockerfile
