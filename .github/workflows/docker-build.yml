@@ -1,0 +1,38 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches:
+      - main  # Workflow uruchomi się po każdym pushu do branchu main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Workflow będzie działał na najnowszym systemie Ubuntu
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2  # Klonowanie repozytorium z GitHub
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2  # Ustawienie Docker Buildx, które umożliwia wieloplatformowe buildy
+
+    - name: Cache Docker layers
+      uses: actions/cache@v2  # Caching Docker layers, żeby przyspieszyć kolejne buildy
+      with:
+        path: /tmp/.buildx-cache
+        key: ${{ runner.os }}-docker-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-docker-
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v2  # Logowanie do Docker Hub
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}  # Wartość z sekretów GitHub
+        password: ${{ secrets.DOCKER_PASSWORD }}  # Wartość z sekretów GitHub
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v2  # Budowanie i pushowanie obrazu Docker
+      with:
+        context: .
+        push: true  # Pushowanie obrazu do rejestru Docker Hub
+        tags: ${{ secrets.DOCKER_USERNAME }}/myapp:latest  # Tagowanie obrazu
